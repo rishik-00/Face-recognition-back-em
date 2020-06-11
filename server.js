@@ -8,15 +8,16 @@ const signin = require('./controllers/signin');
 const profile = require('./controllers/profile')
 const image = require('./controllers/image')
 
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;//only for local development coz using free
+
 const db = knex({
   client: 'pg',
   connection: {
-    host : '127.0.0.1',
-    user : 'postgres',
-    password : 'rishik_25916',
-    database : 'smartbrain'
+    connectionString : process.env.DATABASE_URL,
+    ssl: true,
   }
-})
+});
+
 
 const app = express();
 app.use(express.urlencoded({extended: false}));
